@@ -1,19 +1,11 @@
-'use client'
-import Auth from "@/components/auth/Auth"
-import Home from "@/components/home/Home"
-import { store, persistor } from "@/redux/store"
-import { Provider } from "react-redux"
-import { PersistGate } from "redux-persist/integration/react"
+"use client";
+import Auth from "@/components/auth/Auth";
+import Home from "@/components/home/Home";
+import { selectUserData } from "@/redux/userSlice";
+import { useSelector } from "react-redux";
 
 export default function App() {
-  const isLoggedIn = false
-  return (
-    <>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        {isLoggedIn ? <Home /> : <Auth />}
-      </PersistGate>
-    </Provider>
-    </>
-  )
+  const user = useSelector(selectUserData);
+
+  return <div className="select-none">{user ? <Home /> : <Auth />}</div>;
 }

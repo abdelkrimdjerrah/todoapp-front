@@ -20,24 +20,18 @@ export default function Button({
   onClick,
   className,
   children,
-  outlined,
 }: BtnProps) {
-
-
   const [isHover, setIsHover] = useState(false);
 
   const handleMouseEnter = () => {
     setIsHover(true);
- };
- 
- const handleMouseLeave = () => {
+  };
+
+  const handleMouseLeave = () => {
     setIsHover(false);
- };
+  };
 
   const width = widthFull ? "w-full flex-1" : "";
-  const btn_style = outlined
-    ? " border-[1px] border-gray-600 text-gray-800  hover:bg-gray-800 hover:text-white"
-    : " bg-gray-800 text-white  hover:bg-gray-700 ";
 
   return (
     <button
@@ -47,11 +41,14 @@ export default function Button({
       onClick={onClick}
       className={
         width +
-        btn_style +
         className +
-        " text-sm w-fit font-medium  relative py-3 px-10 rounded-lg duration-200 disabled:opacity-60 disabled:cursor-not-allowed "
+        " text-sm w-fit font-medium bg-[#7B3DFF] text-white  relative py-3 px-10 rounded-md duration-200 disabled:opacity-60 disabled:cursor-not-allowed "
       }
-      style={{ color: isHover ? "white" : color, borderColor: color, backgroundColor: isHover ? color : ""}}
+      style={{
+        color: isHover ? "white" : color,
+        borderColor: color,
+        backgroundColor: isHover ? color : "",
+      }}
     >
       {children}
       <div className=" absolute top-[30%] right-[5%] ">

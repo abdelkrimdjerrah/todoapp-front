@@ -1,4 +1,4 @@
-import { MouseEventHandler, TextareaHTMLAttributes, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 interface TextareaProps {
   text: string;
@@ -18,7 +18,6 @@ function Textarea({
   widthFull,
   white,
   className,
-  type,
   rows,
   text,
   value,
@@ -30,24 +29,23 @@ function Textarea({
   const paddingRight = Icon ? " pr-8 " : " ";
   const background = white ? " bg-white " : "bg-gray-100";
 
-
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const resizeTextArea = () => {
-    if(textAreaRef.current){
-        textAreaRef.current.style.height = "auto";
-        textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px";
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = "auto";
+      textAreaRef.current.style.height =
+        textAreaRef.current.scrollHeight + "px";
     }
   };
 
   useEffect(resizeTextArea, [onChange]);
 
-  
   return (
     <div>
       <div className="relative">
         <textarea
-            ref={textAreaRef}
+          ref={textAreaRef}
           className={
             background +
             width +
