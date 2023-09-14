@@ -73,7 +73,7 @@ function Login() {
         <div className="flex flex-col gap-2 items-center">
           <div className="text-3xl">Login</div>
 
-          {hasBeenRegistered && (
+          {(hasBeenRegistered && !error) && (
             <p className="text-green-500">Account created! Please login now</p>
           )}
 

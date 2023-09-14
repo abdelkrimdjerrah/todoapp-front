@@ -25,14 +25,16 @@ const Todo = () => {
   };
 
   const handleAddTodo = async () => {
-    setNewTodo("");
-
-    const { data } = await axiosPrivate.post(`/api/todos`, { text: newTodo });
-
-    if (!data?.success) {
-      return;
-    }
-
+      
+      const text = newTodo
+      setNewTodo("");
+      
+      const { data } = await axiosPrivate.post(`/api/todos`, { text });
+      
+      if (!data?.success) {
+          return;
+        }
+        
     getReplies();
   };
 

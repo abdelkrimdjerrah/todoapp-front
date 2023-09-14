@@ -17,25 +17,27 @@ const TodoItem = ({ id, text, done, divider }: TodoItemProps) => {
 
   const handleDelete = async () => {
     try {
+      setDeleted(true);
+      
       const { data } = await axiosPrivate.delete(`/api/todos/${id}`);
 
       if (!data?.success) {
         return;
       }
 
-      setDeleted(true);
     } catch (error) {}
   };
 
   const handleMarkAsDone = async () => {
     try {
+      setMarkAsDone(!markAsDone);
+
       const { data } = await axiosPrivate.patch(`/api/todos/${id}`);
 
       if (!data?.success) {
         return;
       }
 
-      setMarkAsDone(!markAsDone);
     } catch (error) {}
   };
 
