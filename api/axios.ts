@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:27015";
-// const BASE_URL = "https://todoapp-test.vercel.app";
+// const BASE_URL = "http://localhost:27015";
+const BASE_URL = "todoapp-back-gamma.vercel.app";
 
 export default axios.create({
   baseURL: BASE_URL,
