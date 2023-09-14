@@ -24,7 +24,6 @@ function Login() {
 
   const [error, setError] = useState("");
 
-  // login
   const handleLogin = async () => {
     try {
       setLoading(true);
@@ -41,7 +40,7 @@ function Login() {
       });
 
       if (!data?.success) {
-        data?.message ? setError(data?.message) : setError("Server error");
+        setError(data?.message);
         return;
       }
 
@@ -59,9 +58,10 @@ function Login() {
         })
       );
 
-      <Link href="/" />;
-    } catch (error) {
-      setError("Server error");
+      <Link href="/" />
+
+    } catch (error: any) {
+      setError(error?.response?.data?.message);
     } finally {
       setLoading(false);
     }
@@ -77,11 +77,12 @@ function Login() {
             <p className="text-green-500">Account created! Please login now</p>
           )}
 
-          {error.length ? (
+          {error && (
             <div className="text-red-500 flex justify-center font-medium">
-              <p>{error}</p>
+              {error}
             </div>
-          ) : null}
+          )}
+
           <div className="flex flex-col gap-2 mt-3 mb-3 w-full">
             <div>
               <p>Email</p>

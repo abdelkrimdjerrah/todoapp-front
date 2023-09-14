@@ -1,4 +1,3 @@
-"use client";
 import { Eye, EyeSlash } from "phosphor-react";
 import Input from "../../components/shared/Input";
 import Button from "../../components/shared/Button";
@@ -12,12 +11,16 @@ function SignUp() {
   ) as AuthContextType;
 
   const [toggleShowPassword, setToggleShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
   const handleSignup = async () => {
     try {
+      setLoading(true);
       const userDetails = {
         email,
         password,
@@ -26,16 +29,16 @@ function SignUp() {
       const { data } = await axios.post(`/api/users`, userDetails);
 
       if (!data?.success) {
-        console.log("error");
+        setError(data?.message);
         return;
       }
 
       setAuthType("login");
       setHasBeenRegistered(true);
-    } catch (error) {
-      console.log("error");
+    } catch (error: any) {
+      setError(error?.response?.data?.message);
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -44,6 +47,12 @@ function SignUp() {
       <div className="bg-white h-fit px-5 py-12 rounded-2xl w-[90%] sm:w-[70%] md:w-[50%] lg:w-[33%] border">
         <div className="flex flex-col gap-2 items-center">
           <div className="text-3xl">Create account</div>
+
+          {error && (
+            <div className="text-red-500 flex justify-center font-medium">
+              {error}
+            </div>
+          )}
 
           <div className="flex flex-col gap-2 mt-3 mb-3 w-full">
             <div>
@@ -83,9 +92,15 @@ function SignUp() {
             </div>
           </div>
 
-          <Button widthFull onClick={handleSignup}>
-            Create account
-          </Button>
+          {loading ? (
+            <Button widthFull loading onClick={handleSignup}>
+              Create account
+            </Button>
+          ) : (
+            <Button widthFull onClick={handleSignup}>
+              Create account
+            </Button>
+          )}
 
           <div className="text-sm flex justify-center gap-1">
             <span>Already have an account?</span>
